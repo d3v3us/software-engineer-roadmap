@@ -41,6 +41,9 @@ In-depth, comprehensive guides for deep understanding:
 - [Retry and Timeout Patterns](./networking/16-RETRY-TIMEOUT-PATTERNS-DEEP-DIVE.md) - Retry patterns (simple, exponential backoff, jitter), timeout patterns (connection, read, total), when to retry vs when not to, combining retry and timeout, best practices, common mistakes
 - [Service Discovery](./networking/17-SERVICE-DISCOVERY-DEEP-DIVE.md) - What is service discovery, client-side vs server-side discovery, service registry, service registration patterns, health checking, implementations (Consul, Eureka, etcd, Zookeeper), DNS-based discovery, service mesh integration, best practices
 - [Webhooks](./networking/18-WEBHOOKS-DEEP-DIVE.md) - What are webhooks, webhooks vs polling, how webhooks work, webhook security (signatures, HTTPS), webhook delivery, retries with exponential backoff, idempotency, webhook signatures, best practices, testing, troubleshooting
+- [Bulkhead Pattern](./networking/19-BULKHEAD-PATTERN-DEEP-DIVE.md) - What is bulkhead pattern, why it's needed (prevent cascading failures), types of bulkheads (thread pools, connection pools, processes, databases), implementation examples, best practices, common mistakes
+- [API Versioning](./networking/20-API-VERSIONING-DEEP-DIVE.md) - What is API versioning, why version APIs, versioning strategies (URL, header, query parameter, content negotiation), semantic versioning, best practices, deprecation strategy, migration between versions, common mistakes
+- [API Pagination](./networking/21-API-PAGINATION-DEEP-DIVE.md) - What is API pagination, why it's needed, pagination strategies (offset-based, cursor-based, keyset, page-based), comparison of methods, best practices, pagination in different scenarios, common mistakes
 
 #### Operating System
 
@@ -60,6 +63,7 @@ In-depth, comprehensive guides for deep understanding:
 - [Garbage Collection](./operating-system/14-GARBAGE-COLLECTION-DEEP-DIVE.md) - Automatic memory management, GC algorithms (mark-and-sweep, copying, generational), incremental and concurrent GC, GC in different languages, performance tuning, real-time GC challenges
 - [Heap Memory Allocation](./operating-system/15-HEAP-MEMORY-ALLOCATION-DEEP-DIVE.md) - Dynamic memory allocation, heap vs stack, allocation algorithms (first fit, best fit, worst fit), memory fragmentation, memory pools, heap in different languages, performance and security considerations
 - [Inter-Process Communication (IPC)](./operating-system/16-INTER-PROCESS-COMMUNICATION-DEEP-DIVE.md) - IPC methods (pipes, named pipes, message queues, shared memory, sockets, signals, memory-mapped files), performance comparison, choosing the right method, synchronization, best practices
+- [Deadlock](./operating-system/17-DEADLOCK-DEEP-DIVE.md) - What is deadlock, four necessary conditions (mutual exclusion, hold and wait, no preemption, circular wait), deadlock detection, prevention strategies, deadlock avoidance (Banker's algorithm), deadlock recovery, best practices
 
 #### Database
 
@@ -75,6 +79,7 @@ In-depth, comprehensive guides for deep understanding:
 - [Distributed Locking](./database/10-DISTRIBUTED-LOCKING-DEEP-DIVE.md) - What is distributed locking, why it's needed, challenges (network partitions, clock skew), algorithms (simple lock, ownership, Redlock), implementations (Redis, Zookeeper, Database, etcd), timeout and deadlocks, reentrancy, best practices, common pitfalls
 - [CAP Theorem and BASE](./database/11-CAP-THEOREM-BASE-DEEP-DIVE.md) - CAP theorem (Consistency, Availability, Partition Tolerance), CP vs AP systems, why CA is not practical, PACELC extension, BASE properties (Basically Available, Soft state, Eventual consistency), ACID vs BASE comparison, tunable consistency, real-world examples
 - [Database Normalization and Denormalization](./database/12-DATABASE-NORMALIZATION-DENORMALIZATION-DEEP-DIVE.md) - What is normalization, normal forms (1NF, 2NF, 3NF, BCNF), why normalize, what is denormalization, why denormalize, denormalization techniques, when to normalize vs denormalize, best practices
+- [Database Backup and Recovery](./database/13-DATABASE-BACKUP-RECOVERY-DEEP-DIVE.md) - What is database backup, why backups are needed, types of backups (full, incremental, differential, continuous), backup strategies, backup storage, recovery strategies, point-in-time recovery (PITR), disaster recovery (RTO, RPO), backup testing, best practices
 
 #### Security
 
@@ -112,6 +117,7 @@ In-depth, comprehensive guides for deep understanding:
 - [Code Review](./software-development/11-CODE-REVIEW-DEEP-DIVE.md) - What is code review, why it matters, what to review (correctness, design, performance, security, testing), giving and receiving feedback, best practices, automated code review
 - [Graceful Shutdown](./software-development/12-GRACEFUL-SHUTDOWN-DEEP-DIVE.md) - What is graceful shutdown, why it's needed, shutdown signals (SIGTERM, SIGINT), shutdown process, connection draining, request completion, resource cleanup, health checks during shutdown, shutdown timeout, implementation patterns, best practices
 - [Leader Election](./software-development/13-LEADER-ELECTION-DEEP-DIVE.md) - What is leader election, why it's needed, leader election algorithms (Bully, Ring), implementations (Zookeeper, etcd, Redis, Database, Raft), leader failure and re-election, split-brain problem, best practices, common pitfalls
+- [Event-Driven Architecture](./software-development/14-EVENT-DRIVEN-ARCHITECTURE-DEEP-DIVE.md) - What is event-driven architecture, event-driven vs request-response, event-driven patterns, event sourcing, CQRS, event streaming, event bus and message brokers, event ordering and consistency, event versioning, event replay, best practices, common challenges
 
 ---
 
