@@ -29,6 +29,7 @@ In-depth, comprehensive guides for deep understanding:
 - [Load Balancing Deep Dive](./networking/04-LOAD-BALANCING-DEEP-DIVE.md) - Load balancing algorithms, layer 4 vs layer 7, health checks, session persistence, high availability
 - [WebSockets Deep Dive](./networking/05-WEBSOCKETS-DEEP-DIVE.md) - WebSocket protocol, handshake, frames, real-time communication, scaling, use cases
 - [REST vs GraphQL vs gRPC Deep Dive](./networking/06-REST-GRAPHQL-GRPC-DEEP-DIVE.md) - Detailed comparison of API styles, when to use each, performance, flexibility, implementation patterns
+- [CDN Deep Dive](./networking/07-CDN-DEEP-DIVE.md) - Content delivery networks: edge locations, caching strategies, cache invalidation, performance optimization, security
 
 #### Operating System
 
