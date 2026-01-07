@@ -37,6 +37,7 @@ In-depth, comprehensive guides for deep understanding:
 - [Circuit Breaker and Rate Limiting](./networking/12-CIRCUIT-BREAKER-RATE-LIMITING-DEEP-DIVE.md) - Circuit breaker pattern (prevent cascading failures), rate limiting algorithms (fixed window, sliding window, token bucket), throttling, implementation
 - [Service Mesh](./networking/13-SERVICE-MESH-DEEP-DIVE.md) - Service-to-service communication infrastructure, sidecar pattern, control plane vs data plane, features (discovery, load balancing, security, observability), Istio, Linkerd
 - [API Design](./networking/14-API-DESIGN-DEEP-DIVE.md) - RESTful API principles, URL design, HTTP methods, status codes, API versioning, error handling, API documentation, common mistakes
+- [What Happens When You Type "google.com"](./networking/15-WHAT-HAPPENS-WHEN-YOU-TYPE-GOOGLE-COM-DEEP-DIVE.md) - Complete journey from URL input to page rendering: DNS resolution, TCP connection, TLS handshake, HTTP request/response, browser rendering, performance optimizations
 
 #### Operating System
 
@@ -52,6 +53,10 @@ In-depth, comprehensive guides for deep understanding:
 - [Memory Leaks](./operating-system/10-MEMORY-LEAKS-DEEP-DIVE.md) - What are memory leaks, common causes (forgotten references, event listeners, circular references, unlimited caches), detection, prevention, fixing
 - [Observability](./operating-system/11-OBSERVABILITY-DEEP-DIVE.md) - Logs, metrics, traces (three pillars), distributed tracing, observability vs monitoring, implementation, best practices
 - [Cache Sizing](./operating-system/12-CACHE-SIZING-DEEP-DIVE.md) - Principles for determining cache size, working set analysis, access patterns, memory constraints, hit rate targets, monitoring and adjustment
+- [System Idle and Background Processes](./operating-system/13-SYSTEM-IDLE-AND-BACKGROUND-PROCESSES-DEEP-DIVE.md) - What OS does when idle, interrupts, daemons, polling vs event-driven, event handling, power management, cron jobs
+- [Garbage Collection](./operating-system/14-GARBAGE-COLLECTION-DEEP-DIVE.md) - Automatic memory management, GC algorithms (mark-and-sweep, copying, generational), incremental and concurrent GC, GC in different languages, performance tuning, real-time GC challenges
+- [Heap Memory Allocation](./operating-system/15-HEAP-MEMORY-ALLOCATION-DEEP-DIVE.md) - Dynamic memory allocation, heap vs stack, allocation algorithms (first fit, best fit, worst fit), memory fragmentation, memory pools, heap in different languages, performance and security considerations
+- [Inter-Process Communication (IPC)](./operating-system/16-INTER-PROCESS-COMMUNICATION-DEEP-DIVE.md) - IPC methods (pipes, named pipes, message queues, shared memory, sockets, signals, memory-mapped files), performance comparison, choosing the right method, synchronization, best practices
 
 #### Database
 
@@ -62,6 +67,7 @@ In-depth, comprehensive guides for deep understanding:
 - [Query Optimization](./database/05-QUERY-OPTIMIZATION-DEEP-DIVE.md) - Query execution, EXPLAIN plans, join optimization, aggregation, subquery optimization, monitoring
 - [Object-Relational Impedance Mismatch](./database/06-OBJECT-RELATIONAL-IMPEDANCE-MISMATCH-DEEP-DIVE.md) - OOP vs Relational paradigms, mismatches (granularity, inheritance, identity, association), ORM solutions, Active Record vs Data Mapper
 - [Event Sourcing and CQRS](./database/07-EVENT-SOURCING-CQRS-DEEP-DIVE.md) - Event Sourcing (store events, derive state), CQRS (separate read/write models), Event Sourcing + CQRS together, Saga pattern (distributed transactions with compensation)
+- [Database Connection Pooling](./database/08-DATABASE-CONNECTION-POOLING-DEEP-DIVE.md) - What is connection pooling, why it's needed, how it works, configuration (size, timeouts, validation), connection lifecycle, sizing guidelines, monitoring, common issues and solutions, best practices
 
 #### Security
 
@@ -79,6 +85,8 @@ In-depth, comprehensive guides for deep understanding:
 - [Closures and Generics](./programming/05-CLOSURES-GENERICS-DEEP-DIVE.md) - Closures (functions with memory), Generics (type parameters), Type Erasure, practical applications
 - [Unicode](./programming/06-UNICODE-DEEP-DIVE.md) - Unicode standard, code points, encoding forms (UTF-8, UTF-16, UTF-32), common issues, normalization, best practices
 - [Streaming](./programming/07-STREAMING-DEEP-DIVE.md) - Streaming vs batch processing, streaming patterns (event streaming, pipelines, windowing, backpressure), implementation, technologies
+- [Mutable vs Immutable](./programming/08-MUTABLE-VS-IMMUTABLE-DEEP-DIVE.md) - Mutable and immutable data structures, pros and cons, performance comparison, thread safety, when to use each, persistent data structures, real-world examples
+- [Code Refactoring](./programming/09-CODE-REFACTORING-DEEP-DIVE.md) - What is refactoring, code smells, refactoring techniques (extract method, extract class, rename, move, replace conditional), refactoring safety, workflow, best practices
 
 #### Software Development Process
 
@@ -91,6 +99,8 @@ In-depth, comprehensive guides for deep understanding:
 - [Idempotency](./software-development/07-IDEMPOTENCY-DEEP-DIVE.md) - What is idempotency, why it matters, idempotency in HTTP, implementing idempotency (idempotency keys), patterns, challenges
 - [Performance Testing](./software-development/08-PERFORMANCE-TESTING-DEEP-DIVE.md) - Types of performance testing (load, stress, spike, volume, endurance), performance metrics, testing tools (JMeter, Gatling, k6), best practices
 - [High Availability and Disaster Recovery](./software-development/09-HIGH-AVAILABILITY-DISASTER-RECOVERY-DEEP-DIVE.md) - High availability patterns (redundancy, active-passive, active-active), disaster recovery strategies, backup strategies (3-2-1 rule), failover mechanisms, measuring availability
+- [Git Branching Strategies](./software-development/10-GIT-BRANCHING-STRATEGIES-DEEP-DIVE.md) - Git vs Mercurial branching, Git Flow, GitHub Flow, GitLab Flow, Trunk-Based Development, feature branches, release and hotfix branches, choosing the right strategy, best practices
+- [Code Review](./software-development/11-CODE-REVIEW-DEEP-DIVE.md) - What is code review, why it matters, what to review (correctness, design, performance, security, testing), giving and receiving feedback, best practices, automated code review
 
 ---
 
