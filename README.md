@@ -74,6 +74,7 @@ In-depth, comprehensive guides for deep understanding:
 - [Database Migrations](./database/09-DATABASE-MIGRATIONS-DEEP-DIVE.md) - What are migrations, why they're needed, migration tools (Rails, Django, Alembic, Flyway, Liquibase), writing migrations, best practices, rollback strategies, zero-downtime migrations, data migrations, testing migrations
 - [Distributed Locking](./database/10-DISTRIBUTED-LOCKING-DEEP-DIVE.md) - What is distributed locking, why it's needed, challenges (network partitions, clock skew), algorithms (simple lock, ownership, Redlock), implementations (Redis, Zookeeper, Database, etcd), timeout and deadlocks, reentrancy, best practices, common pitfalls
 - [CAP Theorem and BASE](./database/11-CAP-THEOREM-BASE-DEEP-DIVE.md) - CAP theorem (Consistency, Availability, Partition Tolerance), CP vs AP systems, why CA is not practical, PACELC extension, BASE properties (Basically Available, Soft state, Eventual consistency), ACID vs BASE comparison, tunable consistency, real-world examples
+- [Database Normalization and Denormalization](./database/12-DATABASE-NORMALIZATION-DENORMALIZATION-DEEP-DIVE.md) - What is normalization, normal forms (1NF, 2NF, 3NF, BCNF), why normalize, what is denormalization, why denormalize, denormalization techniques, when to normalize vs denormalize, best practices
 
 #### Security
 
