@@ -1118,11 +1118,69 @@ Request 2 ────┼─── (all in parallel)
 Request 3 ────┘
 ```
 
-**2. Header Compression:**
+**2. Header Compression (HPACK):**
+
+**What is HPACK?**
+
+HPACK is a compression algorithm specifically designed for HTTP/2 header compression. It's more efficient than general-purpose compression because it's designed for the specific patterns found in HTTP headers.
+
+**The Problem:**
+HTTP/1.1 sends the same headers repeatedly:
 ```
-Headers compressed (HPACK)
-Reduces overhead
+Request 1:
+  Host: example.com
+  User-Agent: Mozilla/5.0...
+  Accept: text/html,application/xhtml+xml
+  Accept-Language: en-US,en;q=0.9
+  Cookie: session=abc123; theme=dark
+
+Request 2:
+  Host: example.com          ← Same!
+  User-Agent: Mozilla/5.0... ← Same!
+  Accept: text/html,application/xhtml+xml ← Same!
+  Accept-Language: en-US,en;q=0.9 ← Same!
+  Cookie: session=abc123; theme=dark ← Same!
 ```
+
+**HPACK Solution:**
+
+HPACK uses two techniques:
+
+**1. Static Table:**
+Pre-defined table of common headers:
+```
+Index 1: :method: GET
+Index 2: :method: POST
+Index 3: :path: /
+Index 4: :authority
+...
+```
+
+**2. Dynamic Table:**
+Server and client maintain a shared table of recently used headers:
+```
+First request:
+  Host: example.com → Added to dynamic table (index 62)
+  User-Agent: Mozilla/5.0... → Added to dynamic table (index 63)
+
+Second request:
+  Host: example.com → Reference to index 62 (just 1 byte!)
+  User-Agent: Mozilla/5.0... → Reference to index 63 (just 1 byte!)
+```
+
+**Visual Example:**
+```
+HTTP/1.1 Request:
+  Headers: ~500 bytes
+
+HTTP/2 Request (same headers):
+  Headers: ~50 bytes (90% reduction!)
+```
+
+**Benefits:**
+- **Reduced bandwidth**: Headers are much smaller
+- **Faster transmission**: Less data to send
+- **Better performance**: Especially on slow connections
 
 **3. Server Push:**
 ```
@@ -1139,24 +1197,371 @@ More efficient parsing
 
 ### HTTP/3 (QUIC)
 
-**Built on UDP instead of TCP:**
+#### What is QUIC?
 
-**Why UDP?**
-- TCP has head-of-line blocking
-- UDP allows independent streams
+**QUIC (Quick UDP Internet Connections)** is a transport protocol developed by Google that runs on top of UDP instead of TCP. It was designed to solve fundamental problems with TCP that affect web performance, especially in modern network conditions.
 
-**Features:**
-- **Built-in encryption**: TLS 1.3
-- **Faster connection**: 0-RTT for some cases
-- **Better mobility**: Handles network changes
-- **Multiplexing**: Like HTTP/2, but better
+**Key Innovation:**
+QUIC combines the best aspects of TCP (reliability, congestion control) with the flexibility of UDP, while adding built-in encryption and connection migration capabilities.
 
-**QUIC Benefits:**
+#### Why UDP Instead of TCP?
+
+**What is UDP?**
+
+Before understanding why QUIC uses UDP, we need to understand what UDP is.
+
+**UDP (User Datagram Protocol)** is a connectionless transport protocol. Unlike TCP, UDP:
+- **No connection establishment**: Sends data immediately
+- **No reliability guarantee**: Doesn't ensure packets arrive or arrive in order
+- **No flow control**: Doesn't prevent overwhelming the receiver
+- **No congestion control**: Doesn't adapt to network conditions
+- **Lightweight**: Minimal overhead
+
+**UDP Analogy:**
+Think of UDP like sending postcards:
+- You write and send immediately (no handshake)
+- No guarantee it arrives
+- No guarantee of order
+- Fast and simple
+
+**TCP Analogy:**
+Think of TCP like registered mail:
+- Must establish connection first (handshake)
+- Guaranteed delivery
+- Guaranteed order
+- More overhead, but reliable
+
+**Why QUIC Uses UDP:**
+
+QUIC uses UDP as its base, but implements its own reliability, flow control, and congestion control on top of it. This gives QUIC the flexibility of UDP with the reliability of TCP.
+
+**The TCP Problem:**
+
+TCP has a fundamental limitation called **head-of-line blocking**. When multiple streams share a single TCP connection (as in HTTP/2), if one packet is lost, all streams must wait for that packet to be retransmitted, even if other streams have no issues.
+
+**Visual Example:**
 ```
-Network change (WiFi → Mobile):
-  TCP: Connection breaks, must reconnect
-  QUIC: Connection continues seamlessly
+TCP Connection (HTTP/2):
+Stream 1: [Packet 1 ✓] [Packet 2 ✓] [Packet 3 ✗ LOST] [Packet 4 waiting...]
+Stream 2: [Packet 1 ✓] [Packet 2 ✓] [Packet 3 ✓] [Packet 4 waiting...]
+Stream 3: [Packet 1 ✓] [Packet 2 ✓] [Packet 3 ✓] [Packet 4 waiting...]
+
+All streams blocked because Stream 1 lost Packet 3!
 ```
+
+**UDP Solution:**
+
+UDP doesn't have this problem because it doesn't guarantee order or reliability at the transport layer. QUIC implements its own reliability and ordering **per stream**, so if one stream loses a packet, other streams can continue.
+
+**Visual Example:**
+```
+QUIC Connection (HTTP/3):
+Stream 1: [Packet 1 ✓] [Packet 2 ✓] [Packet 3 ✗ LOST] [retransmitting...]
+Stream 2: [Packet 1 ✓] [Packet 2 ✓] [Packet 3 ✓] [Packet 4 ✓] [continues!]
+Stream 3: [Packet 1 ✓] [Packet 2 ✓] [Packet 3 ✓] [Packet 4 ✓] [continues!]
+
+Only Stream 1 is blocked; others continue!
+```
+
+#### QUIC Architecture
+
+**QUIC is a Complete Protocol Stack:**
+
+```
+Application Layer:    HTTP/3
+                      ↓
+Transport Layer:     QUIC (reliability, congestion control, multiplexing)
+                      ↓
+Security Layer:      TLS 1.3 (built-in, not separate)
+                      ↓
+Network Layer:       UDP
+                      ↓
+Internet Layer:      IP
+```
+
+**Key Difference from TCP:**
+- **TCP + TLS**: Two separate handshakes (TCP handshake, then TLS handshake)
+- **QUIC**: Single handshake that combines connection establishment and encryption
+
+#### QUIC Features Explained
+
+**1. Built-in Encryption (TLS 1.3)**
+
+**Traditional Approach (TCP + TLS):**
+```
+1. TCP Handshake (3 packets)
+   SYN → SYN-ACK → ACK
+   
+2. TLS Handshake (2-3 round trips)
+   ClientHello → ServerHello + Certificate → ClientKeyExchange → Finished
+   
+Total: 3-4 round trips before data can be sent
+```
+
+**QUIC Approach:**
+```
+1. QUIC Handshake (combines connection + encryption)
+   Initial packet (contains TLS ClientHello)
+   → Server response (contains TLS ServerHello + Certificate)
+   → Client completes handshake
+   
+Total: 1-2 round trips (faster!)
+```
+
+**Why This Matters:**
+- **Reduced latency**: Fewer round trips mean faster connection establishment
+- **Security by default**: Encryption cannot be disabled
+- **Prevents middlebox interference**: Middleboxes can't see or modify QUIC traffic
+
+**2. Connection Migration**
+
+**The Problem with TCP:**
+
+TCP connections are tied to a specific 4-tuple: (source IP, source port, destination IP, destination port). If any of these changes (e.g., switching from WiFi to mobile data), the connection breaks.
+
+**Example:**
+```
+User on WiFi:
+  IP: 192.168.1.100
+  Port: 54321
+  Connection ID: TCP connection based on IP:Port
+
+User switches to Mobile:
+  IP: 10.0.0.50 (completely different!)
+  Port: 54321
+  TCP: "This is a new connection, must start over!"
+  Result: Connection drops, must reconnect
+```
+
+**QUIC Solution:**
+
+QUIC uses **Connection IDs** instead of IP:Port tuples. The connection is identified by a unique ID that persists across network changes.
+
+**Example:**
+```
+User on WiFi:
+  Connection ID: abc123xyz
+  IP: 192.168.1.100
+
+User switches to Mobile:
+  Connection ID: abc123xyz (same!)
+  IP: 10.0.0.50 (different, but QUIC doesn't care)
+  QUIC: "Same Connection ID, continuing seamlessly!"
+  Result: Connection continues, no interruption
+```
+
+**Visual Flow:**
+```
+WiFi Network:
+  Client ──[Connection ID: abc123]──> Server
+         <──[Connection ID: abc123]──
+
+Network Change (WiFi → Mobile):
+  Client (new IP) ──[Connection ID: abc123]──> Server
+                  <──[Connection ID: abc123]──
+  
+Server recognizes same Connection ID
+Connection continues seamlessly!
+```
+
+**3. 0-RTT Connection Establishment**
+
+**What is 0-RTT?**
+
+0-RTT (Zero Round Trip Time) allows a client to send data in the first packet to a server it has previously connected to, without waiting for a handshake.
+
+**How It Works:**
+
+**First Connection (1-RTT):**
+```
+Client → Server: Initial packet (TLS ClientHello)
+Server → Client: Response (TLS ServerHello + Certificate)
+Client → Server: Finished + Data (can send data now)
+```
+Total: 1 round trip before data
+
+**Subsequent Connections (0-RTT):**
+```
+Client → Server: Initial packet + Early Data (sends data immediately!)
+Server → Client: Response (validates and processes data)
+```
+Total: 0 round trips before data (data sent in first packet!)
+
+**Security Consideration:**
+
+0-RTT data is encrypted but vulnerable to replay attacks. QUIC includes replay protection mechanisms to prevent attackers from replaying 0-RTT packets.
+
+**4. Improved Multiplexing**
+
+**HTTP/2 Multiplexing Problem:**
+
+HTTP/2 multiplexes streams over a single TCP connection, but if TCP loses a packet, all streams are blocked:
+
+```
+TCP Connection:
+  Stream 1: [✓] [✓] [✗ LOST] [waiting...]
+  Stream 2: [✓] [✓] [✓] [waiting...] ← blocked even though no packet loss
+  Stream 3: [✓] [✓] [✓] [waiting...] ← blocked even though no packet loss
+```
+
+**QUIC Multiplexing Solution:**
+
+Each stream has independent packet loss recovery:
+
+```
+QUIC Connection:
+  Stream 1: [✓] [✓] [✗ LOST] [retransmitting...]
+  Stream 2: [✓] [✓] [✓] [✓] [continues!] ← not blocked
+  Stream 3: [✓] [✓] [✓] [✓] [continues!] ← not blocked
+```
+
+**5. Faster Congestion Control**
+
+**What is Congestion Control?**
+
+Congestion control is a mechanism that prevents network congestion by controlling the rate at which data is sent. When a network is congested (too much traffic), packets are dropped, and congestion control algorithms slow down transmission to avoid overwhelming the network.
+
+**Traditional TCP Congestion Control:**
+
+TCP uses algorithms like:
+- **Reno**: Slow start, then linear increase until packet loss
+- **Cubic**: More aggressive, cubic growth function
+
+**Problem with Traditional Algorithms:**
+- **Reactive**: Only respond after packet loss occurs
+- **Conservative**: Often send less than the network can handle
+- **Slow to adapt**: Take time to find optimal rate
+
+**BBR (Bottleneck Bandwidth and Round-trip propagation time):**
+
+BBR is a modern congestion control algorithm developed by Google that takes a different approach:
+
+**BBR Principles:**
+1. **Measure bandwidth**: Actively measure the bottleneck bandwidth
+2. **Measure RTT**: Measure round-trip time
+3. **Model the network**: Build a model of the network path
+4. **Proactive**: Adjust sending rate based on model, not just packet loss
+
+**How BBR Works:**
+
+```
+1. Probe for bandwidth:
+   - Gradually increase sending rate
+   - Measure delivery rate
+   - Find maximum sustainable rate
+
+2. Probe for RTT:
+   - Reduce sending rate slightly
+   - Measure minimum RTT
+   - Find optimal operating point
+
+3. Maintain optimal rate:
+   - Send at ~90% of measured bandwidth
+   - Keep queue size small (low latency)
+   - Adapt to network changes
+```
+
+**BBR Benefits:**
+- **Higher throughput**: Often achieves higher speeds than traditional algorithms
+- **Lower latency**: Keeps queues small, reducing delay
+- **Better on high-speed networks**: Performs well on modern high-bandwidth connections
+- **More stable**: Less oscillation in sending rate
+
+**QUIC and BBR:**
+
+QUIC can use BBR or other modern congestion control algorithms, providing better performance than traditional TCP algorithms, especially on:
+- High-bandwidth networks (fiber, 5G)
+- Networks with variable latency (mobile, satellite)
+- Long-distance connections
+
+**6. Unordered Delivery**
+
+QUIC can deliver data out of order within a stream, which allows for faster processing when packets arrive in different order.
+
+#### QUIC Benefits Summary
+
+**1. Reduced Latency:**
+- Faster connection establishment (1-RTT vs 3-4 RTT for TCP+TLS)
+- 0-RTT for subsequent connections
+- No head-of-line blocking
+
+**2. Better Performance on Unreliable Networks:**
+- Independent stream recovery
+- Connection migration (survives network changes)
+- Better congestion control
+
+**3. Enhanced Security:**
+- Encryption built-in (cannot be disabled)
+- TLS 1.3 by default
+- Protection against middlebox interference
+
+**4. Improved User Experience:**
+- Seamless network transitions (WiFi ↔ Mobile)
+- Faster page loads
+- Better performance on mobile networks
+
+#### QUIC vs TCP Comparison
+
+| Feature | TCP | QUIC |
+|---------|-----|------|
+| **Transport** | TCP | UDP |
+| **Encryption** | Separate (TLS) | Built-in (TLS 1.3) |
+| **Handshake** | 3-way (TCP) + TLS | Combined (1-2 RTT) |
+| **Head-of-Line Blocking** | Yes (affects all streams) | No (per-stream) |
+| **Connection Migration** | No (breaks on IP change) | Yes (Connection ID) |
+| **0-RTT** | No | Yes (for repeat connections) |
+| **Multiplexing** | Limited (HTTP/2) | Better (independent streams) |
+
+#### Real-World Example: Network Change
+
+**Scenario:** User watching a video, switches from WiFi to mobile data
+
+**With TCP:**
+```
+1. User on WiFi, watching video
+2. Switches to mobile data
+3. IP address changes
+4. TCP connection breaks
+5. Video stops, must reconnect
+6. User sees loading spinner
+7. Connection re-established
+8. Video resumes (may have to rebuffer)
+```
+
+**With QUIC:**
+```
+1. User on WiFi, watching video
+2. Switches to mobile data
+3. IP address changes
+4. QUIC recognizes same Connection ID
+5. Connection continues seamlessly
+6. Video continues playing (no interruption)
+7. User doesn't notice anything
+```
+
+#### When to Use HTTP/3 (QUIC)
+
+**Best For:**
+- **Mobile applications**: Better performance on unreliable networks
+- **Real-time applications**: Lower latency, better multiplexing
+- **Applications with network changes**: Connection migration benefits
+- **High-latency networks**: Faster connection establishment
+
+**Considerations:**
+- **Adoption**: Not all servers/clients support QUIC yet
+- **Firewall/NAT**: Some networks block UDP (QUIC uses UDP)
+- **Fallback**: HTTP/3 implementations should fall back to HTTP/2 or HTTP/1.1
+
+#### QUIC Implementation
+
+**Major Implementations:**
+- **Google Chrome**: First browser to support QUIC
+- **Cloudflare**: CDN with QUIC support
+- **Facebook**: Uses QUIC for mobile apps
+- **IETF Standard**: QUIC is now standardized (RFC 9000)
+
+**Current Status:**
+QUIC is rapidly being adopted. Major browsers and CDNs support it, and it's becoming the default for many modern web applications.
 
 ---
 

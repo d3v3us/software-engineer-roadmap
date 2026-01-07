@@ -113,20 +113,155 @@ Edges: BOUGHT, LIKES, FRIENDS_WITH
 
 ### NewSQL
 
-**NewSQL** combines SQL's ACID guarantees with NoSQL's scalability.
+**What is NewSQL?**
 
-**Examples:**
-- Google Spanner
-- CockroachDB
-- TiDB
+**NewSQL** is a class of modern relational database management systems that combine the ACID guarantees and SQL interface of traditional SQL databases with the horizontal scalability and distributed architecture of NoSQL databases.
+
+**The Problem NewSQL Solves:**
+
+**Traditional SQL:**
+- ACID guarantees ✓
+- SQL interface ✓
+- Complex queries ✓
+- **But**: Hard to scale horizontally (must scale vertically - bigger hardware)
+
+**NoSQL:**
+- Horizontal scaling ✓
+- High performance ✓
+- **But**: No ACID (eventual consistency), limited query capabilities
+
+**NewSQL Solution:**
+- ACID guarantees ✓
+- SQL interface ✓
+- Horizontal scaling ✓
+- Distributed architecture ✓
+
+**How NewSQL Works:**
+
+**1. Distributed Architecture:**
+```
+Traditional SQL:
+┌─────────────────┐
+│  Single Server  │
+│   (All Data)    │
+└─────────────────┘
+
+NewSQL:
+┌──────┐  ┌──────┐  ┌──────┐
+│Node 1│  │Node 2│  │Node 3│
+│Shard │  │Shard │  │Shard │
+└──────┘  └──────┘  └──────┘
+    └──────┬──────┘
+    Distributed
+```
+
+**2. Auto-Sharding:**
+- Data automatically distributed across nodes
+- No manual sharding required
+- System handles data placement
+
+**3. ACID Across Nodes:**
+- Transactions can span multiple nodes
+- Maintains ACID guarantees even in distributed setup
+- Uses distributed consensus algorithms (like Raft, Paxos)
+
+**4. SQL Interface:**
+- Standard SQL queries
+- Works like traditional SQL database
+- No need to learn new query language
+
+**Examples of NewSQL Databases:**
+
+**1. Google Spanner:**
+- **Developer**: Google
+- **Features**: Global distribution, strong consistency
+- **Use Case**: Global applications needing strong consistency
+- **Notable**: First globally distributed database with external consistency
+
+**2. CockroachDB:**
+- **Developer**: Cockroach Labs
+- **Features**: PostgreSQL-compatible, automatic sharding, multi-region
+- **Use Case**: Cloud-native applications needing SQL with scale
+- **Notable**: Open source, inspired by Spanner
+
+**3. TiDB:**
+- **Developer**: PingCAP
+- **Features**: MySQL-compatible, horizontal scaling, HTAP (Hybrid Transactional/Analytical Processing)
+- **Use Case**: Large-scale applications needing MySQL compatibility with scale
+- **Notable**: Popular in Asia, open source
+
+**4. Amazon Aurora:**
+- **Developer**: Amazon
+- **Features**: MySQL/PostgreSQL compatible, cloud-native
+- **Use Case**: AWS-based applications
+- **Notable**: Serverless option available
 
 **Characteristics:**
-- SQL interface
-- ACID transactions
-- Horizontal scaling (auto-sharding)
-- Distributed architecture
 
-**Use Case**: Need SQL features but at NoSQL scale.
+**1. SQL Interface:**
+- Standard SQL queries
+- Joins, transactions, ACID
+- Works like traditional SQL
+
+**2. ACID Transactions:**
+- Full ACID guarantees
+- Even across distributed nodes
+- Strong consistency
+
+**3. Horizontal Scaling:**
+- Add nodes to scale
+- Automatic data distribution
+- No downtime for scaling
+
+**4. Distributed Architecture:**
+- Data replicated across nodes
+- High availability
+- Fault tolerance
+
+**5. Auto-Sharding:**
+- Automatic data partitioning
+- No manual sharding logic needed
+- System handles distribution
+
+**When to Use NewSQL:**
+
+**Good For:**
+- Need SQL features (joins, transactions) at scale
+- Want ACID guarantees in distributed system
+- Need horizontal scaling
+- Existing SQL applications that need to scale
+
+**Not Good For:**
+- Simple applications (overkill)
+- Very high write throughput (NoSQL might be better)
+- Cost-sensitive (can be expensive)
+
+**NewSQL vs SQL vs NoSQL:**
+
+| Feature | SQL | NoSQL | NewSQL |
+|---------|-----|-------|--------|
+| **ACID** | ✓ | ✗ (eventual) | ✓ |
+| **SQL Interface** | ✓ | ✗ | ✓ |
+| **Horizontal Scaling** | ✗ | ✓ | ✓ |
+| **Complex Queries** | ✓ | Limited | ✓ |
+| **Consistency** | Strong | Eventual | Strong |
+| **Use Case** | Traditional apps | High scale, simple data | High scale, complex queries |
+
+**Use Case Example:**
+
+**Scenario**: E-commerce platform with millions of users
+
+**Requirements:**
+- Need complex queries (user orders, product recommendations)
+- Need transactions (order processing)
+- Need to scale horizontally (millions of users)
+- Need strong consistency (inventory, payments)
+
+**Solution: NewSQL**
+- SQL interface for complex queries
+- ACID for transactions
+- Horizontal scaling for millions of users
+- Strong consistency for critical operations
 
 ### Scaling: SQL vs NoSQL
 
@@ -287,36 +422,153 @@ After restart: Changes are still there
 
 ### BASE Properties (NoSQL)
 
-**BASE** is the opposite of ACID for distributed systems.
+**What is BASE?**
+
+**BASE** (Basically Available, Soft state, Eventual consistency) is a design philosophy for distributed systems that prioritizes availability and performance over strict consistency. It's often described as the opposite of ACID.
+
+**Why BASE?**
+
+In distributed systems, maintaining strict consistency (ACID) across all nodes can be:
+- **Slow**: Must wait for all nodes to agree
+- **Unavailable**: System may reject requests during network issues
+- **Expensive**: Requires complex coordination
+
+BASE trades strict consistency for:
+- **Availability**: System always responds
+- **Performance**: Faster responses
+- **Scalability**: Easier to scale
 
 **1. Basically Available**
-- System remains available even during failures
-- May return degraded response
 
-**2. Soft State**
-- State may change without input (eventual consistency)
-- No immediate consistency guarantee
-
-**3. Eventual Consistency**
-- System will become consistent eventually
-- Not immediately consistent
+**What it means:**
+- System remains available (responds to requests) even during failures
+- May return degraded or stale data, but always responds
+- No request is rejected due to system state
 
 **Example:**
 ```
-Write to Node A: x = 10
-Read from Node B: x = 5 (old value)
-Later: Node B updates → x = 10 (eventually consistent)
+Node A: Available
+Node B: Available
+Node C: Down (network partition)
+
+User reads from Node A: Gets data ✓
+User reads from Node B: Gets data ✓
+System doesn't reject requests, even if some nodes are down
 ```
+
+**Contrast with ACID:**
+- **ACID**: May reject requests if can't guarantee consistency
+- **BASE**: Always responds, even with potentially stale data
+
+**2. Soft State**
+
+**What it means:**
+- System state may change without new input
+- State is "soft" because it's not immediately consistent
+- State will eventually become consistent, but not immediately
+
+**Example:**
+```
+Initial State:
+  Node A: x = 10
+  Node B: x = 10
+  Node C: x = 10
+
+Write to Node A: x = 20
+Current State (immediately after write):
+  Node A: x = 20 (updated)
+  Node B: x = 10 (not yet updated - soft state)
+  Node C: x = 10 (not yet updated - soft state)
+
+Later (after replication):
+  Node A: x = 20
+  Node B: x = 20 (eventually updated)
+  Node C: x = 20 (eventually updated)
+```
+
+**Key Point:**
+State is "soft" because it's in transition. It will harden (become consistent) eventually.
+
+**3. Eventual Consistency**
+
+**What it means:**
+- System will become consistent eventually
+- Not immediately consistent
+- All nodes will eventually have the same data
+
+**Example Timeline:**
+```
+Time 0: Write x = 20 to Node A
+  Node A: x = 20
+  Node B: x = 10 (old value)
+  Node C: x = 10 (old value)
+  → Inconsistent
+
+Time 1: Replication to Node B
+  Node A: x = 20
+  Node B: x = 20 (updated)
+  Node C: x = 10 (old value)
+  → Still inconsistent
+
+Time 2: Replication to Node C
+  Node A: x = 20
+  Node B: x = 20
+  Node C: x = 20 (updated)
+  → Eventually consistent!
+```
+
+**Real-World Example: Social Media Feed**
+
+**Scenario:** User posts a photo
+
+**With BASE (Eventual Consistency):**
+```
+1. User posts photo → Saved to Node A
+2. User's friends immediately check feed:
+   - Friend 1 (reads from Node A): Sees photo ✓
+   - Friend 2 (reads from Node B): Doesn't see photo yet (eventual)
+3. Replication happens (seconds later)
+4. Friend 2 refreshes: Now sees photo ✓
+5. Eventually, all nodes have the photo
+```
+
+**Trade-off:**
+- **ACID**: All friends see photo immediately (consistent), but system may be slower
+- **BASE**: Some friends may see photo later (eventual), but system is faster and more available
+
+**BASE Summary:**
+
+| Property | Meaning | Benefit |
+|----------|---------|---------|
+| **Basically Available** | Always responds | High availability |
+| **Soft State** | State in transition | Flexibility |
+| **Eventual Consistency** | Consistent eventually | Performance, scalability |
+
+**When to Use BASE:**
+- High availability required
+- Performance is critical
+- Can tolerate temporary inconsistency
+- Examples: Social media, content delivery, analytics
 
 ### CAP Theorem
 
-**CAP Theorem**: In distributed systems, you can only guarantee 2 of 3:
+**What is the CAP Theorem?**
 
-**C - Consistency**: All nodes see same data simultaneously
-**A - Availability**: System remains operational
-**P - Partition Tolerance**: System continues despite network failures
+**CAP Theorem** (also known as Brewer's Theorem) states that in a distributed system, you can only guarantee **2 out of 3** properties:
 
-**Visual:**
+**C - Consistency**: All nodes see the same data simultaneously
+**A - Availability**: System remains operational and responds to requests
+**P - Partition Tolerance**: System continues to operate despite network failures (partitions)
+
+**Why Only 2 of 3?**
+
+When a network partition occurs (nodes can't communicate), you must choose:
+- **Consistency**: Reject requests to maintain consistency (sacrifice availability)
+- **Availability**: Accept requests with potentially inconsistent data (sacrifice consistency)
+
+You cannot have both consistency and availability during a partition.
+
+**Visual Representation:**
 ```
         Consistency
             /\
@@ -327,11 +579,168 @@ Later: Node B updates → x = 10 (eventually consistent)
 Availability ─── Partition Tolerance
 ```
 
-**Choices:**
+**The Three Properties Explained:**
 
-**CP (Consistency + Partition Tolerance)**
-- Example: Traditional SQL databases
-- Sacrifice: Availability (may reject requests during partition)
+**1. Consistency (C):**
+- All nodes have the same data at the same time
+- Read always returns the most recent write
+- No stale data
+
+**Example:**
+```
+Write x = 10 to Node A
+Immediately read from any node:
+  Node A: x = 10 ✓
+  Node B: x = 10 ✓
+  Node C: x = 10 ✓
+All nodes see same value immediately
+```
+
+**2. Availability (A):**
+- System responds to every request
+- No request is rejected
+- System is always operational
+
+**Example:**
+```
+User makes request
+System always responds (even if data is stale)
+Never returns error due to system state
+```
+
+**3. Partition Tolerance (P):**
+- System continues operating despite network failures
+- Nodes can be separated (partitioned) and system still works
+- Required for distributed systems
+
+**Example:**
+```
+Network partition:
+  Node A ──X── Node B (can't communicate)
+
+System still operates:
+  Node A: Continues serving requests
+  Node B: Continues serving requests
+```
+
+**The Three Choices:**
+
+**1. CP (Consistency + Partition Tolerance)**
+- **Choose**: Consistency and Partition Tolerance
+- **Sacrifice**: Availability
+
+**How it works:**
+- During partition, system rejects requests to maintain consistency
+- Prevents inconsistent data, but system becomes unavailable
+
+**Example:**
+```
+Network partition occurs:
+  Node A ──X── Node B
+
+User tries to write:
+  System: "Cannot guarantee consistency, request rejected"
+  → System unavailable during partition
+```
+
+**Real-World Examples:**
+- Traditional SQL databases (PostgreSQL, MySQL in strict mode)
+- Distributed databases with strong consistency (MongoDB with strong consistency mode)
+- Financial systems (must be consistent)
+
+**2. AP (Availability + Partition Tolerance)**
+- **Choose**: Availability and Partition Tolerance
+- **Sacrifice**: Consistency
+
+**How it works:**
+- During partition, system accepts requests
+- May return stale or inconsistent data
+- System remains available
+
+**Example:**
+```
+Network partition occurs:
+  Node A ──X── Node B
+
+User reads from Node A:
+  System: Returns data (may be stale) ✓
+  → System available, but may be inconsistent
+```
+
+**Real-World Examples:**
+- NoSQL databases (Cassandra, DynamoDB)
+- Content delivery networks (CDN)
+- Social media feeds (can show stale data)
+
+**3. CA (Consistency + Availability)**
+- **Choose**: Consistency and Availability
+- **Sacrifice**: Partition Tolerance
+
+**How it works:**
+- Only works when there's no network partition
+- If partition occurs, must choose CP or AP
+- Not practical for distributed systems
+
+**Example:**
+```
+Single node system:
+  No partitions possible
+  Can have both consistency and availability
+```
+
+**Real-World Examples:**
+- Single-server databases
+- Not practical for distributed systems (partitions will occur)
+
+**CAP Theorem in Practice:**
+
+**Most Distributed Systems Choose:**
+- **CP**: When consistency is critical (financial, healthcare)
+- **AP**: When availability is critical (social media, content delivery)
+
+**Important Notes:**
+
+**1. CAP is about trade-offs during partitions:**
+- When no partition: Can have all three
+- During partition: Must choose 2
+
+**2. "Choose 2" doesn't mean ignore the third:**
+- CP systems still try to be available when possible
+- AP systems still try to be consistent when possible
+
+**3. Modern systems are more nuanced:**
+- Many systems provide tunable consistency
+- Can choose consistency level per operation
+- Example: Strong consistency for critical operations, eventual for others
+
+**CAP Theorem Summary:**
+
+| Choice | Guarantees | Sacrifices | Use Case |
+|--------|-----------|------------|----------|
+| **CP** | Consistency, Partition Tolerance | Availability | Financial systems, critical data |
+| **AP** | Availability, Partition Tolerance | Consistency | Social media, content delivery |
+| **CA** | Consistency, Availability | Partition Tolerance | Single node (not distributed) |
+
+**Real-World Example: E-commerce System**
+
+**Scenario:** User adds item to cart
+
+**CP System (Strong Consistency):**
+```
+During network partition:
+  User adds item to cart
+  System: "Cannot guarantee consistency, please try again"
+  → Rejects request, maintains consistency
+```
+
+**AP System (High Availability):**
+```
+During network partition:
+  User adds item to cart
+  System: "Item added" (may not be immediately visible everywhere)
+  → Accepts request, remains available
+  → Eventually consistent across all nodes
+```
 
 **AP (Availability + Partition Tolerance)**
 - Example: NoSQL (Cassandra, DynamoDB)

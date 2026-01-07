@@ -254,10 +254,31 @@ Content-Length: 123
 - **Server push**: Server can send resources before client asks
 
 **HTTP/3 (QUIC):**
-- Uses UDP instead of TCP
-- Built-in encryption
-- Faster connection establishment
-- Better handling of network changes (mobile)
+
+**What is QUIC?**
+
+QUIC (Quick UDP Internet Connections) is a modern transport protocol developed by Google that runs on top of UDP instead of TCP. It was designed to solve fundamental problems with TCP that affect web performance.
+
+**Key Features:**
+
+- **UDP-based**: Uses UDP instead of TCP, allowing independent stream recovery
+- **Built-in encryption**: TLS 1.3 encryption is built into the protocol (cannot be disabled)
+- **Faster connection**: 1-2 round trips vs 3-4 for TCP+TLS
+- **0-RTT**: Can send data immediately on repeat connections
+- **Connection migration**: Survives network changes (WiFi ↔ Mobile) using Connection IDs
+- **No head-of-line blocking**: Each stream recovers independently
+- **Better multiplexing**: Multiple streams without blocking each other
+
+**Why UDP?**
+
+TCP has head-of-line blocking - if one packet is lost, all streams wait. UDP doesn't have this, and QUIC implements its own reliability per stream, so only the affected stream waits.
+
+**Real-World Benefit:**
+```
+Network change (WiFi → Mobile):
+  TCP: Connection breaks, must reconnect
+  QUIC: Connection continues seamlessly (same Connection ID)
+```
 
 ---
 
