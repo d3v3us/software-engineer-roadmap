@@ -44,6 +44,7 @@ In-depth, comprehensive guides for deep understanding:
 - [Bulkhead Pattern](./networking/19-BULKHEAD-PATTERN-DEEP-DIVE.md) - What is bulkhead pattern, why it's needed (prevent cascading failures), types of bulkheads (thread pools, connection pools, processes, databases), implementation examples, best practices, common mistakes
 - [API Versioning](./networking/20-API-VERSIONING-DEEP-DIVE.md) - What is API versioning, why version APIs, versioning strategies (URL, header, query parameter, content negotiation), semantic versioning, best practices, deprecation strategy, migration between versions, common mistakes
 - [API Pagination](./networking/21-API-PAGINATION-DEEP-DIVE.md) - What is API pagination, why it's needed, pagination strategies (offset-based, cursor-based, keyset, page-based), comparison of methods, best practices, pagination in different scenarios, common mistakes
+- [API Caching](./networking/22-API-CACHING-DEEP-DIVE.md) - What is API caching, why it's needed, types of caching (client-side, CDN, reverse proxy, application, database), HTTP caching (Cache-Control, ETag, Last-Modified), cache strategies (cache-aside, write-through, write-behind, refresh-ahead), cache invalidation, best practices, common mistakes
 
 #### Operating System
 
@@ -64,6 +65,7 @@ In-depth, comprehensive guides for deep understanding:
 - [Heap Memory Allocation](./operating-system/15-HEAP-MEMORY-ALLOCATION-DEEP-DIVE.md) - Dynamic memory allocation, heap vs stack, allocation algorithms (first fit, best fit, worst fit), memory fragmentation, memory pools, heap in different languages, performance and security considerations
 - [Inter-Process Communication (IPC)](./operating-system/16-INTER-PROCESS-COMMUNICATION-DEEP-DIVE.md) - IPC methods (pipes, named pipes, message queues, shared memory, sockets, signals, memory-mapped files), performance comparison, choosing the right method, synchronization, best practices
 - [Deadlock](./operating-system/17-DEADLOCK-DEEP-DIVE.md) - What is deadlock, four necessary conditions (mutual exclusion, hold and wait, no preemption, circular wait), deadlock detection, prevention strategies, deadlock avoidance (Banker's algorithm), deadlock recovery, best practices
+- [Context Switching](./operating-system/18-CONTEXT-SWITCHING-DEEP-DIVE.md) - What is context switching, why it's needed, what is context (PCB), context switch process, context switch cost and overhead, minimizing context switches, user vs kernel context switches, performance impact, best practices
 
 #### Database
 
@@ -80,6 +82,8 @@ In-depth, comprehensive guides for deep understanding:
 - [CAP Theorem and BASE](./database/11-CAP-THEOREM-BASE-DEEP-DIVE.md) - CAP theorem (Consistency, Availability, Partition Tolerance), CP vs AP systems, why CA is not practical, PACELC extension, BASE properties (Basically Available, Soft state, Eventual consistency), ACID vs BASE comparison, tunable consistency, real-world examples
 - [Database Normalization and Denormalization](./database/12-DATABASE-NORMALIZATION-DENORMALIZATION-DEEP-DIVE.md) - What is normalization, normal forms (1NF, 2NF, 3NF, BCNF), why normalize, what is denormalization, why denormalize, denormalization techniques, when to normalize vs denormalize, best practices
 - [Database Backup and Recovery](./database/13-DATABASE-BACKUP-RECOVERY-DEEP-DIVE.md) - What is database backup, why backups are needed, types of backups (full, incremental, differential, continuous), backup strategies, backup storage, recovery strategies, point-in-time recovery (PITR), disaster recovery (RTO, RPO), backup testing, best practices
+- [Query Optimization](./database/14-QUERY-OPTIMIZATION-DEEP-DIVE.md) - What is query optimization, query execution process, execution plans, understanding EXPLAIN, common performance issues, optimization techniques, index optimization, join optimization, query rewriting, statistics and cardinality, best practices, common mistakes
+- [Database Sharding](./database/15-DATABASE-SHARDING-DEEP-DIVE.md) - What is database sharding, why it's needed, sharding vs replication, sharding strategies (range-based, hash-based, directory-based, geographic), horizontal vs vertical sharding, shard key selection, sharding architectures, shard management, cross-shard queries, shard rebalancing, best practices, common challenges
 
 #### Security
 
@@ -88,6 +92,7 @@ In-depth, comprehensive guides for deep understanding:
 - [Credential Storage](./security/03-CREDENTIAL-STORAGE-DEEP-DIVE.md) - Password hashing, database credentials, API keys, secret management services, key rotation, best practices
 - [DDoS Defense](./security/04-DDOS-DEFENSE-DEEP-DIVE.md) - DDoS attack types, detection, defense strategies, rate limiting, protection services, incident response
 - [API Authentication and Authorization](./security/05-API-AUTHENTICATION-AUTHORIZATION-DEEP-DIVE.md) - Authentication vs authorization, authentication methods (API keys, Basic Auth, JWT, OAuth 2.0, Sessions), OAuth 2.0 flows, OpenID Connect, authorization models (RBAC, ABAC), best practices, common security issues
+- [API Security Best Practices](./security/06-API-SECURITY-BEST-PRACTICES-DEEP-DIVE.md) - What is API security, common API vulnerabilities (OWASP API Top 10), authentication and authorization, input validation, output encoding, rate limiting, HTTPS and TLS, API keys management, secrets management, security headers, error handling security, logging and monitoring, best practices, common mistakes
 
 #### Programming Paradigm
 
@@ -101,6 +106,7 @@ In-depth, comprehensive guides for deep understanding:
 - [Mutable vs Immutable](./programming/08-MUTABLE-VS-IMMUTABLE-DEEP-DIVE.md) - Mutable and immutable data structures, pros and cons, performance comparison, thread safety, when to use each, persistent data structures, real-world examples
 - [Code Refactoring](./programming/09-CODE-REFACTORING-DEEP-DIVE.md) - What is refactoring, code smells, refactoring techniques (extract method, extract class, rename, move, replace conditional), refactoring safety, workflow, best practices
 - [Data Serialization](./programming/10-DATA-SERIALIZATION-DEEP-DIVE.md) - What is serialization, serialization formats (JSON, XML, Protocol Buffers, Avro, MessagePack, BSON), comparison of formats, choosing the right format, best practices, schema evolution
+- [Error Handling](./programming/11-ERROR-HANDLING-DEEP-DIVE.md) - What is error handling, types of errors, error handling strategies (fail fast, fail safe, retry), exception handling, error codes vs exceptions, error propagation, error recovery, error logging, error handling patterns, best practices, common mistakes
 
 #### Software Development Process
 
