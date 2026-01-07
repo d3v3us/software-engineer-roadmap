@@ -30,6 +30,8 @@ In-depth, comprehensive guides for deep understanding:
 - [WebSockets](./networking/05-WEBSOCKETS-DEEP-DIVE.md) - WebSocket protocol, handshake, frames, real-time communication, scaling, use cases
 - [REST vs GraphQL vs gRPC](./networking/06-REST-GRAPHQL-GRPC-DEEP-DIVE.md) - Detailed comparison of API styles, when to use each, performance, flexibility, implementation patterns
 - [CDN](./networking/07-CDN-DEEP-DIVE.md) - Content delivery networks: edge locations, caching strategies, cache invalidation, performance optimization, security
+- [Client-Side vs Server-Side Rendering](./networking/08-CLIENT-SERVER-RENDERING-DEEP-DIVE.md) - SSR vs CSR, trade-offs (performance, SEO, UX), hybrid approaches (SSG, ISR, hydration), when to use each
+- [Reliable Communication Protocols](./networking/09-RELIABLE-COMMUNICATION-PROTOCOLS-DEEP-DIVE.md) - Building reliability on unreliable channels, sequence numbers, ACKs, checksums, retransmission, TCP example, designing reliable protocols
 
 #### Operating System
 
@@ -41,6 +43,7 @@ In-depth, comprehensive guides for deep understanding:
 - [System Calls](./operating-system/06-SYSTEM-CALLS-DEEP-DIVE.md) - User/kernel space, syscall mechanism, common system calls, performance, security
 - [Caching](./operating-system/07-CACHING-DEEP-DIVE.md) - Cache hierarchy, LRU/LFU policies, in-memory caching (Redis/Memcached), cache stampede, distributed caching
 - [Sorting Algorithms](./operating-system/08-SORTING-ALGORITHMS-DEEP-DIVE.md) - Quicksort, Merge sort, Heap sort, complexity analysis, real-world usage, choosing algorithms
+- [Real-Time Systems](./operating-system/09-REAL-TIME-SYSTEMS-DEEP-DIVE.md) - Hard vs soft real-time, deadlines, real-time scheduling (RMS, EDF), memory management, real-time languages, design principles
 
 #### Database
 
@@ -49,6 +52,7 @@ In-depth, comprehensive guides for deep understanding:
 - [Database Replication](./database/03-DATABASE-REPLICATION-DEEP-DIVE.md) - Master-slave architecture, binary logs, replication process, replication lag, failover
 - [Database Sharding](./database/04-DATABASE-SHARDING-DEEP-DIVE.md) - Sharding strategies, shard key selection, querying across shards, rebalancing
 - [Query Optimization](./database/05-QUERY-OPTIMIZATION-DEEP-DIVE.md) - Query execution, EXPLAIN plans, join optimization, aggregation, subquery optimization, monitoring
+- [Object-Relational Impedance Mismatch](./database/06-OBJECT-RELATIONAL-IMPEDANCE-MISMATCH-DEEP-DIVE.md) - OOP vs Relational paradigms, mismatches (granularity, inheritance, identity, association), ORM solutions, Active Record vs Data Mapper
 
 #### Security
 
@@ -61,6 +65,8 @@ In-depth, comprehensive guides for deep understanding:
 
 - [OOP](./programming/01-OOP-DEEP-DIVE.md) - Classes and objects, inheritance, polymorphism, encapsulation, abstraction, composition, design patterns, SOLID principles
 - [Functional Programming](./programming/02-FUNCTIONAL-PROGRAMMING-DEEP-DIVE.md) - Pure functions, immutability, higher-order functions, function composition, recursion, lazy evaluation
+- [Design Patterns](./programming/03-DESIGN-PATTERNS-DEEP-DIVE.md) - Singleton, Inversion of Control, Law of Demeter, Active Record vs Data Mapper, Inheritance vs Composition, Anti-Corruption Layer, Separation of Concerns, DRY, Dependency Hell, Globals, Null References
+- [Code Design Principles](./programming/04-CODE-DESIGN-PRINCIPLES-DEEP-DIVE.md) - High Cohesion, Loose Coupling, DRY, Refactoring, Code Comments, Design vs Architecture, Early Testing, Domain Logic in Stored Procedures
 
 #### Software Development Process
 
@@ -116,4 +122,7 @@ This knowledge base is designed to be comprehensive and detailed. If you find ar
 
 ## License
 
-This knowledge base is created for educational purposes. Original questions and structure based on [backend-swe-interview-questions](https://github.com/tamhoang1412/backend-swe-interview-questions).
+This knowledge base is created for educational purposes. Original questions and structure based on:
+
+- [backend-swe-interview-questions](https://github.com/tamhoang1412/backend-swe-interview-questions)
+- [Back-End-Developer-Interview-Questions](https://github.com/arialdomartini/Back-End-Developer-Interview-Questions)
