@@ -44,6 +44,7 @@ In-depth, comprehensive guides for deep understanding:
 - [Caching](./operating-system/07-CACHING-DEEP-DIVE.md) - Cache hierarchy, LRU/LFU policies, in-memory caching (Redis/Memcached), cache stampede, distributed caching
 - [Sorting Algorithms](./operating-system/08-SORTING-ALGORITHMS-DEEP-DIVE.md) - Quicksort, Merge sort, Heap sort, complexity analysis, real-world usage, choosing algorithms
 - [Real-Time Systems](./operating-system/09-REAL-TIME-SYSTEMS-DEEP-DIVE.md) - Hard vs soft real-time, deadlines, real-time scheduling (RMS, EDF), memory management, real-time languages, design principles
+- [Memory Leaks](./operating-system/10-MEMORY-LEAKS-DEEP-DIVE.md) - What are memory leaks, common causes (forgotten references, event listeners, circular references, unlimited caches), detection, prevention, fixing
 
 #### Database
 
@@ -67,12 +68,17 @@ In-depth, comprehensive guides for deep understanding:
 - [Functional Programming](./programming/02-FUNCTIONAL-PROGRAMMING-DEEP-DIVE.md) - Pure functions, immutability, higher-order functions, function composition, recursion, lazy evaluation
 - [Design Patterns](./programming/03-DESIGN-PATTERNS-DEEP-DIVE.md) - Singleton, Inversion of Control, Law of Demeter, Active Record vs Data Mapper, Inheritance vs Composition, Anti-Corruption Layer, Separation of Concerns, DRY, Dependency Hell, Globals, Null References
 - [Code Design Principles](./programming/04-CODE-DESIGN-PRINCIPLES-DEEP-DIVE.md) - High Cohesion, Loose Coupling, DRY, Refactoring, Code Comments, Design vs Architecture, Early Testing, Domain Logic in Stored Procedures
+- [Closures and Generics](./programming/05-CLOSURES-GENERICS-DEEP-DIVE.md) - Closures (functions with memory), Generics (type parameters), Type Erasure, practical applications
+- [Unicode](./programming/06-UNICODE-DEEP-DIVE.md) - Unicode standard, code points, encoding forms (UTF-8, UTF-16, UTF-32), common issues, normalization, best practices
+- [Streaming](./programming/07-STREAMING-DEEP-DIVE.md) - Streaming vs batch processing, streaming patterns (event streaming, pipelines, windowing, backpressure), implementation, technologies
 
 #### Software Development Process
 
 - [DDD](./software-development/01-DDD-DEEP-DIVE.md) - Domain-Driven Design: ubiquitous language, bounded contexts, tactical patterns, aggregates, domain events, implementation guide
 - [TDD](./software-development/02-TDD-DEEP-DIVE.md) - Test-Driven Development: Red-Green-Refactor cycle, writing good tests, test types, mocking, TDD patterns and practices
 - [BDD](./software-development/03-BDD-DEEP-DIVE.md) - Behavior-Driven Development: Given-When-Then, Gherkin syntax, BDD tools, step definitions, collaboration, living documentation
+- [CI/CD](./software-development/04-CICD-DEEP-DIVE.md) - Continuous Integration and Continuous Delivery: CI/CD pipeline, automated testing, deployment strategies, best practices, challenges
+- [Monolith vs Microservices](./software-development/05-MONOLITH-MICROSERVICES-DEEP-DIVE.md) - Architecture comparison, when to use each, migration strategies (strangler pattern), challenges (communication, consistency, service discovery)
 
 ---
 
