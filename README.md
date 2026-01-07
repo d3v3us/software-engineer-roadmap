@@ -40,6 +40,7 @@ In-depth, comprehensive guides for deep understanding:
 - [What Happens When You Type "google.com"](./networking/15-WHAT-HAPPENS-WHEN-YOU-TYPE-GOOGLE-COM-DEEP-DIVE.md) - Complete journey from URL input to page rendering: DNS resolution, TCP connection, TLS handshake, HTTP request/response, browser rendering, performance optimizations
 - [Retry and Timeout Patterns](./networking/16-RETRY-TIMEOUT-PATTERNS-DEEP-DIVE.md) - Retry patterns (simple, exponential backoff, jitter), timeout patterns (connection, read, total), when to retry vs when not to, combining retry and timeout, best practices, common mistakes
 - [Service Discovery](./networking/17-SERVICE-DISCOVERY-DEEP-DIVE.md) - What is service discovery, client-side vs server-side discovery, service registry, service registration patterns, health checking, implementations (Consul, Eureka, etcd, Zookeeper), DNS-based discovery, service mesh integration, best practices
+- [Webhooks](./networking/18-WEBHOOKS-DEEP-DIVE.md) - What are webhooks, webhooks vs polling, how webhooks work, webhook security (signatures, HTTPS), webhook delivery, retries with exponential backoff, idempotency, webhook signatures, best practices, testing, troubleshooting
 
 #### Operating System
 
@@ -80,6 +81,7 @@ In-depth, comprehensive guides for deep understanding:
 - [SSL/TLS](./security/02-SSL-TLS-DEEP-DIVE.md) - TLS handshake, certificates, certificate authorities, cipher suites, perfect forward secrecy, performance optimization
 - [Credential Storage](./security/03-CREDENTIAL-STORAGE-DEEP-DIVE.md) - Password hashing, database credentials, API keys, secret management services, key rotation, best practices
 - [DDoS Defense](./security/04-DDOS-DEFENSE-DEEP-DIVE.md) - DDoS attack types, detection, defense strategies, rate limiting, protection services, incident response
+- [API Authentication and Authorization](./security/05-API-AUTHENTICATION-AUTHORIZATION-DEEP-DIVE.md) - Authentication vs authorization, authentication methods (API keys, Basic Auth, JWT, OAuth 2.0, Sessions), OAuth 2.0 flows, OpenID Connect, authorization models (RBAC, ABAC), best practices, common security issues
 
 #### Programming Paradigm
 
@@ -92,6 +94,7 @@ In-depth, comprehensive guides for deep understanding:
 - [Streaming](./programming/07-STREAMING-DEEP-DIVE.md) - Streaming vs batch processing, streaming patterns (event streaming, pipelines, windowing, backpressure), implementation, technologies
 - [Mutable vs Immutable](./programming/08-MUTABLE-VS-IMMUTABLE-DEEP-DIVE.md) - Mutable and immutable data structures, pros and cons, performance comparison, thread safety, when to use each, persistent data structures, real-world examples
 - [Code Refactoring](./programming/09-CODE-REFACTORING-DEEP-DIVE.md) - What is refactoring, code smells, refactoring techniques (extract method, extract class, rename, move, replace conditional), refactoring safety, workflow, best practices
+- [Data Serialization](./programming/10-DATA-SERIALIZATION-DEEP-DIVE.md) - What is serialization, serialization formats (JSON, XML, Protocol Buffers, Avro, MessagePack, BSON), comparison of formats, choosing the right format, best practices, schema evolution
 
 #### Software Development Process
 
@@ -107,6 +110,7 @@ In-depth, comprehensive guides for deep understanding:
 - [Git Branching Strategies](./software-development/10-GIT-BRANCHING-STRATEGIES-DEEP-DIVE.md) - Git vs Mercurial branching, Git Flow, GitHub Flow, GitLab Flow, Trunk-Based Development, feature branches, release and hotfix branches, choosing the right strategy, best practices
 - [Code Review](./software-development/11-CODE-REVIEW-DEEP-DIVE.md) - What is code review, why it matters, what to review (correctness, design, performance, security, testing), giving and receiving feedback, best practices, automated code review
 - [Graceful Shutdown](./software-development/12-GRACEFUL-SHUTDOWN-DEEP-DIVE.md) - What is graceful shutdown, why it's needed, shutdown signals (SIGTERM, SIGINT), shutdown process, connection draining, request completion, resource cleanup, health checks during shutdown, shutdown timeout, implementation patterns, best practices
+- [Leader Election](./software-development/13-LEADER-ELECTION-DEEP-DIVE.md) - What is leader election, why it's needed, leader election algorithms (Bully, Ring), implementations (Zookeeper, etcd, Redis, Database, Raft), leader failure and re-election, split-brain problem, best practices, common pitfalls
 
 ---
 
