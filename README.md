@@ -32,6 +32,11 @@ In-depth, comprehensive guides for deep understanding:
 - [CDN](./networking/07-CDN-DEEP-DIVE.md) - Content delivery networks: edge locations, caching strategies, cache invalidation, performance optimization, security
 - [Client-Side vs Server-Side Rendering](./networking/08-CLIENT-SERVER-RENDERING-DEEP-DIVE.md) - SSR vs CSR, trade-offs (performance, SEO, UX), hybrid approaches (SSG, ISR, hydration), when to use each
 - [Reliable Communication Protocols](./networking/09-RELIABLE-COMMUNICATION-PROTOCOLS-DEEP-DIVE.md) - Building reliability on unreliable channels, sequence numbers, ACKs, checksums, retransmission, TCP example, designing reliable protocols
+- [API Gateway](./networking/10-API-GATEWAY-DEEP-DIVE.md) - Single entry point, routing, authentication, rate limiting, caching, load balancing, API versioning, gateway patterns (BFF, aggregation, orchestration)
+- [Message Queues](./networking/11-MESSAGE-QUEUES-DEEP-DIVE.md) - Asynchronous messaging, decoupling, message queue patterns (point-to-point, pub-sub, request-reply, work queue), delivery guarantees, popular systems (RabbitMQ, Kafka, SQS)
+- [Circuit Breaker and Rate Limiting](./networking/12-CIRCUIT-BREAKER-RATE-LIMITING-DEEP-DIVE.md) - Circuit breaker pattern (prevent cascading failures), rate limiting algorithms (fixed window, sliding window, token bucket), throttling, implementation
+- [Service Mesh](./networking/13-SERVICE-MESH-DEEP-DIVE.md) - Service-to-service communication infrastructure, sidecar pattern, control plane vs data plane, features (discovery, load balancing, security, observability), Istio, Linkerd
+- [API Design](./networking/14-API-DESIGN-DEEP-DIVE.md) - RESTful API principles, URL design, HTTP methods, status codes, API versioning, error handling, API documentation, common mistakes
 
 #### Operating System
 
@@ -45,6 +50,8 @@ In-depth, comprehensive guides for deep understanding:
 - [Sorting Algorithms](./operating-system/08-SORTING-ALGORITHMS-DEEP-DIVE.md) - Quicksort, Merge sort, Heap sort, complexity analysis, real-world usage, choosing algorithms
 - [Real-Time Systems](./operating-system/09-REAL-TIME-SYSTEMS-DEEP-DIVE.md) - Hard vs soft real-time, deadlines, real-time scheduling (RMS, EDF), memory management, real-time languages, design principles
 - [Memory Leaks](./operating-system/10-MEMORY-LEAKS-DEEP-DIVE.md) - What are memory leaks, common causes (forgotten references, event listeners, circular references, unlimited caches), detection, prevention, fixing
+- [Observability](./operating-system/11-OBSERVABILITY-DEEP-DIVE.md) - Logs, metrics, traces (three pillars), distributed tracing, observability vs monitoring, implementation, best practices
+- [Cache Sizing](./operating-system/12-CACHE-SIZING-DEEP-DIVE.md) - Principles for determining cache size, working set analysis, access patterns, memory constraints, hit rate targets, monitoring and adjustment
 
 #### Database
 
@@ -54,6 +61,7 @@ In-depth, comprehensive guides for deep understanding:
 - [Database Sharding](./database/04-DATABASE-SHARDING-DEEP-DIVE.md) - Sharding strategies, shard key selection, querying across shards, rebalancing
 - [Query Optimization](./database/05-QUERY-OPTIMIZATION-DEEP-DIVE.md) - Query execution, EXPLAIN plans, join optimization, aggregation, subquery optimization, monitoring
 - [Object-Relational Impedance Mismatch](./database/06-OBJECT-RELATIONAL-IMPEDANCE-MISMATCH-DEEP-DIVE.md) - OOP vs Relational paradigms, mismatches (granularity, inheritance, identity, association), ORM solutions, Active Record vs Data Mapper
+- [Event Sourcing and CQRS](./database/07-EVENT-SOURCING-CQRS-DEEP-DIVE.md) - Event Sourcing (store events, derive state), CQRS (separate read/write models), Event Sourcing + CQRS together, Saga pattern (distributed transactions with compensation)
 
 #### Security
 
@@ -79,6 +87,10 @@ In-depth, comprehensive guides for deep understanding:
 - [BDD](./software-development/03-BDD-DEEP-DIVE.md) - Behavior-Driven Development: Given-When-Then, Gherkin syntax, BDD tools, step definitions, collaboration, living documentation
 - [CI/CD](./software-development/04-CICD-DEEP-DIVE.md) - Continuous Integration and Continuous Delivery: CI/CD pipeline, automated testing, deployment strategies, best practices, challenges
 - [Monolith vs Microservices](./software-development/05-MONOLITH-MICROSERVICES-DEEP-DIVE.md) - Architecture comparison, when to use each, migration strategies (strangler pattern), challenges (communication, consistency, service discovery)
+- [Green Field vs Brown Field](./software-development/06-GREEN-BROWN-FIELD-DEEP-DIVE.md) - Green field (new projects) vs brown field (legacy projects), advantages and challenges, working with legacy code, migration strategies
+- [Idempotency](./software-development/07-IDEMPOTENCY-DEEP-DIVE.md) - What is idempotency, why it matters, idempotency in HTTP, implementing idempotency (idempotency keys), patterns, challenges
+- [Performance Testing](./software-development/08-PERFORMANCE-TESTING-DEEP-DIVE.md) - Types of performance testing (load, stress, spike, volume, endurance), performance metrics, testing tools (JMeter, Gatling, k6), best practices
+- [High Availability and Disaster Recovery](./software-development/09-HIGH-AVAILABILITY-DISASTER-RECOVERY-DEEP-DIVE.md) - High availability patterns (redundancy, active-passive, active-active), disaster recovery strategies, backup strategies (3-2-1 rule), failover mechanisms, measuring availability
 
 ---
 
