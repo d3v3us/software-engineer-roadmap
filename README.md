@@ -38,6 +38,8 @@ In-depth, comprehensive guides for deep understanding:
 - [Service Mesh](./networking/13-SERVICE-MESH-DEEP-DIVE.md) - Service-to-service communication infrastructure, sidecar pattern, control plane vs data plane, features (discovery, load balancing, security, observability), Istio, Linkerd
 - [API Design](./networking/14-API-DESIGN-DEEP-DIVE.md) - RESTful API principles, URL design, HTTP methods, status codes, API versioning, error handling, API documentation, common mistakes
 - [What Happens When You Type "google.com"](./networking/15-WHAT-HAPPENS-WHEN-YOU-TYPE-GOOGLE-COM-DEEP-DIVE.md) - Complete journey from URL input to page rendering: DNS resolution, TCP connection, TLS handshake, HTTP request/response, browser rendering, performance optimizations
+- [Retry and Timeout Patterns](./networking/16-RETRY-TIMEOUT-PATTERNS-DEEP-DIVE.md) - Retry patterns (simple, exponential backoff, jitter), timeout patterns (connection, read, total), when to retry vs when not to, combining retry and timeout, best practices, common mistakes
+- [Service Discovery](./networking/17-SERVICE-DISCOVERY-DEEP-DIVE.md) - What is service discovery, client-side vs server-side discovery, service registry, service registration patterns, health checking, implementations (Consul, Eureka, etcd, Zookeeper), DNS-based discovery, service mesh integration, best practices
 
 #### Operating System
 
@@ -68,6 +70,9 @@ In-depth, comprehensive guides for deep understanding:
 - [Object-Relational Impedance Mismatch](./database/06-OBJECT-RELATIONAL-IMPEDANCE-MISMATCH-DEEP-DIVE.md) - OOP vs Relational paradigms, mismatches (granularity, inheritance, identity, association), ORM solutions, Active Record vs Data Mapper
 - [Event Sourcing and CQRS](./database/07-EVENT-SOURCING-CQRS-DEEP-DIVE.md) - Event Sourcing (store events, derive state), CQRS (separate read/write models), Event Sourcing + CQRS together, Saga pattern (distributed transactions with compensation)
 - [Database Connection Pooling](./database/08-DATABASE-CONNECTION-POOLING-DEEP-DIVE.md) - What is connection pooling, why it's needed, how it works, configuration (size, timeouts, validation), connection lifecycle, sizing guidelines, monitoring, common issues and solutions, best practices
+- [Database Migrations](./database/09-DATABASE-MIGRATIONS-DEEP-DIVE.md) - What are migrations, why they're needed, migration tools (Rails, Django, Alembic, Flyway, Liquibase), writing migrations, best practices, rollback strategies, zero-downtime migrations, data migrations, testing migrations
+- [Distributed Locking](./database/10-DISTRIBUTED-LOCKING-DEEP-DIVE.md) - What is distributed locking, why it's needed, challenges (network partitions, clock skew), algorithms (simple lock, ownership, Redlock), implementations (Redis, Zookeeper, Database, etcd), timeout and deadlocks, reentrancy, best practices, common pitfalls
+- [CAP Theorem and BASE](./database/11-CAP-THEOREM-BASE-DEEP-DIVE.md) - CAP theorem (Consistency, Availability, Partition Tolerance), CP vs AP systems, why CA is not practical, PACELC extension, BASE properties (Basically Available, Soft state, Eventual consistency), ACID vs BASE comparison, tunable consistency, real-world examples
 
 #### Security
 
@@ -101,6 +106,7 @@ In-depth, comprehensive guides for deep understanding:
 - [High Availability and Disaster Recovery](./software-development/09-HIGH-AVAILABILITY-DISASTER-RECOVERY-DEEP-DIVE.md) - High availability patterns (redundancy, active-passive, active-active), disaster recovery strategies, backup strategies (3-2-1 rule), failover mechanisms, measuring availability
 - [Git Branching Strategies](./software-development/10-GIT-BRANCHING-STRATEGIES-DEEP-DIVE.md) - Git vs Mercurial branching, Git Flow, GitHub Flow, GitLab Flow, Trunk-Based Development, feature branches, release and hotfix branches, choosing the right strategy, best practices
 - [Code Review](./software-development/11-CODE-REVIEW-DEEP-DIVE.md) - What is code review, why it matters, what to review (correctness, design, performance, security, testing), giving and receiving feedback, best practices, automated code review
+- [Graceful Shutdown](./software-development/12-GRACEFUL-SHUTDOWN-DEEP-DIVE.md) - What is graceful shutdown, why it's needed, shutdown signals (SIGTERM, SIGINT), shutdown process, connection draining, request completion, resource cleanup, health checks during shutdown, shutdown timeout, implementation patterns, best practices
 
 ---
 
