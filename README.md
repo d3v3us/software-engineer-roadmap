@@ -23,6 +23,7 @@ In-depth, comprehensive guides for deep understanding:
 - [TCP/IP Deep Dive](./networking/01-TCP-IP-DEEP-DIVE.md) - Complete understanding of TCP: handshakes, flow control, congestion control, reliability mechanisms
 - [HTTP/HTTPS Deep Dive](./networking/02-HTTP-HTTPS-DEEP-DIVE.md) - HTTP fundamentals, methods, status codes, headers, HTTPS/TLS, caching, RESTful design
 - [DNS Deep Dive](./networking/03-DNS-DEEP-DIVE.md) - DNS hierarchy, resolution process, record types, caching, security, troubleshooting
+- [Load Balancing Deep Dive](./networking/04-LOAD-BALANCING-DEEP-DIVE.md) - Load balancing algorithms, layer 4 vs layer 7, health checks, session persistence, high availability
 
 #### Operating System
 - [Memory Management Deep Dive](./operating-system/01-MEMORY-MANAGEMENT-DEEP-DIVE.md) - Virtual memory, paging, page tables, heap/stack, memory allocation, garbage collection
@@ -31,12 +32,15 @@ In-depth, comprehensive guides for deep understanding:
 #### Database
 - [Database Indexing Deep Dive](./database/01-DATABASE-INDEXING-DEEP-DIVE.md) - B-Trees, index types, composite indexes, query optimization, best practices
 - [Database Transactions Deep Dive](./database/02-DATABASE-TRANSACTIONS-DEEP-DIVE.md) - ACID properties, isolation levels, concurrency problems, locking, MVCC, distributed transactions
+- [Database Replication Deep Dive](./database/03-DATABASE-REPLICATION-DEEP-DIVE.md) - Master-slave architecture, binary logs, replication process, replication lag, failover
+- [Database Sharding Deep Dive](./database/04-DATABASE-SHARDING-DEEP-DIVE.md) - Sharding strategies, shard key selection, querying across shards, rebalancing
+
+#### Security
+- [Encryption and Hashing Deep Dive](./security/01-ENCRYPTION-HASHING-DEEP-DIVE.md) - Symmetric/asymmetric encryption, hash functions, password hashing, digital signatures, key management
 
 #### More Deep Dives Coming Soon
-- Load Balancing Deep Dive
-- Security Deep Dives (Encryption, TLS, etc.)
-- CDN, WebSockets, REST/GraphQL/gRPC
-- Database Replication and Sharding
+- SSL/TLS Deep Dive
+- CDN, WebSockets, REST/GraphQL/gRPC Deep Dives
 - OOP and Functional Programming Deep Dives
 - DDD, TDD, BDD Deep Dives
 
